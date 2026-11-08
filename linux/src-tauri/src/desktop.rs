@@ -78,11 +78,16 @@ pub fn set(app: &tauri::AppHandle, enabled: bool) -> Result<(), String> {
             .set_size(*monitor.size())
             .map_err(|e| e.to_string())?;
     }
+    // GTK needs a realized GdkWindow before the input region can be changed.
+    wallpaper.show().map_err(|e| e.to_string())?;
     wallpaper
         .set_ignore_cursor_events(true)
         .map_err(|e| e.to_string())?;
-    wallpaper.show().map_err(|e| e.to_string())?;
     main.hide().map_err(|e| e.to_string())?;
+    eprintln!(
+        "Afterglow wallpaper ready: {}",
+        if wayland { "Wayland" } else { "X11" }
+    );
     Ok(())
 }
 #[cfg(not(target_os = "linux"))]

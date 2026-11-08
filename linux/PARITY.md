@@ -12,7 +12,7 @@ This is the release gate for the Linux port. A checked implementation is not a c
 | Scenes, collections and color precedence | Atomic local library; saved scenes/colors/collections | Failure/recovery and native persistence lifecycle |
 | Lyric cards and frozen map save/copy | PNG export, native dialog/image clipboard | Clipboard and desktop share targets |
 | Focus/window/fullscreen and tray | Native Tauri window/tray and single-instance actions | Real KDE/GNOME tray availability and lifecycle |
-| Desktop wallpaper | Separate renderer; X11 or compatible Wayland Layer Shell | Real X11/KDE/wlroots, monitor/workspace changes; GNOME Wayland integration remains absent |
+| Desktop wallpaper | Separate renderer; X11 or compatible Wayland Layer Shell | X11 and headless Sway lifecycle passed; real KDE/wlroots, monitor/workspace changes; GNOME Wayland integration remains absent |
 | Player-only beat sync | PulseAudio selected sink-input monitor; portable FFT | Two simultaneous streams, routing changes, silence, Spotify process matching |
 | Pause/hide/sleep/battery scheduling | Capture lifecycle, logind and UPower; lower battery frame rate | Physical suspend/wake, battery and thermal measurements; thermal-pressure parity remains absent |
 | Global shortcuts | GlobalShortcuts portal plus desktop-bound single-instance actions | Portal allow/deny/rebind and unavailable-backend tests |

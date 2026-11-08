@@ -195,6 +195,13 @@ fn enable_shortcuts(app: tauri::AppHandle) -> Result<(), String> {
     shortcuts::start(app)
 }
 #[tauri::command]
+fn client_error(message: String) {
+    eprintln!(
+        "Afterglow UI error: {}",
+        message.chars().take(2000).collect::<String>()
+    );
+}
+#[tauri::command]
 fn ui_ready(app: tauri::AppHandle) -> Option<String> {
     let state = app.state::<Lifecycle>();
     state.ready.store(true, std::sync::atomic::Ordering::SeqCst);
@@ -302,6 +309,7 @@ fn main() {
             publish_display,
             enable_shortcuts,
             ui_ready,
+            client_error,
             export_png
         ])
         .run(tauri::generate_context!())

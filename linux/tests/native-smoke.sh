@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
+export WEBKIT_DISABLE_DMABUF_RENDERER=1
+export LIBGL_ALWAYS_SOFTWARE=1
 binary="$(realpath "$1")"
 cd "$(dirname "$0")/.."
 mkdir -p test-results
@@ -7,7 +9,14 @@ openbox >test-results/openbox.log 2>&1 &
 wm_pid=$!
 "$binary" >test-results/native.log 2>&1 &
 app_pid=$!
-trap 'kill "$app_pid" "$wm_pid" 2>/dev/null || true' EXIT
+cleanup(){
+  status=$?
+  if [[ "$status" != 0 ]]; then tail -80 test-results/native.log >&2; fi
+  kill "$app_pid" "$wm_pid" 2>/dev/null || true
+  sleep .2
+  kill -KILL "$app_pid" "$wm_pid" 2>/dev/null || true
+}
+trap cleanup EXIT
 for attempt in $(seq 1 60); do
   kill -0 "$app_pid"
   if xdotool search --name '^Afterglow$' >/dev/null 2>&1; then break; fi

@@ -69,6 +69,10 @@ function notice(text) {
   $("#notice").hidden = !text;
 }
 function report(error) {
+  if (native)
+    call("client_error", {
+      message: error instanceof Error ? error.message : String(error),
+    }).catch(() => {});
   notice(error instanceof Error ? error.message : String(error));
 }
 function persist() {

@@ -31,10 +31,11 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: linux/src-tauri -> target
+          cache-on-failure: true
       - name: Install Linux build and test dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-layer-shell-dev libdbus-1-dev libssl-dev libcurl4-openssl-dev libxdo-dev patchelf xvfb dbus-x11 openbox xdotool pulseaudio pulseaudio-utils python3-dbus python3-gi
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-layer-shell-dev libdbus-1-dev libssl-dev libcurl4-openssl-dev libxdo-dev patchelf xvfb dbus-x11 openbox sway xdotool pulseaudio pulseaudio-utils python3-dbus python3-gi
       - name: Shared Swift core checks
         run: swift run CoreChecks
       - name: Build shared lyric service
@@ -55,6 +56,8 @@ jobs:
         run: npm run bundle
       - name: Launch native WebKitGTK application
         run: dbus-run-session -- xvfb-run -a -s '-screen 0 1440x900x24' bash linux/tests/native-smoke.sh linux/src-tauri/target/release/afterglow-linux
+      - name: Launch Wayland wallpaper under headless Sway
+        run: XDG_RUNTIME_DIR="$(mktemp -d)" dbus-run-session -- bash linux/tests/wayland-smoke.sh linux/src-tauri/target/release/afterglow-linux
       - uses: actions/upload-artifact@v4
         if: always()
         with:
