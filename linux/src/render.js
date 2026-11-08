@@ -77,7 +77,7 @@ export function renderer(canvas, graph, clock) {
       phase,
       energy,
       bands: audio.bands || [],
-      live: playing,
+      live: playing && audio.bands?.length === 32,
       pulse: energy * 0.2,
       reducedMotion: reduced,
     });
@@ -142,10 +142,23 @@ export function renderer(canvas, graph, clock) {
         settings.clockSize,
       ].join(":");
     clock.hidden = !settings.clock;
+    clock.style.color = settings.clockFollowsLyrics
+      ? settings.color
+      : settings.clockColor;
     if (nextClock !== lastClock) {
       lastClock = nextClock;
       clock.innerHTML =
-        clockMarkup(date, settings) +
+        clockMarkup(date, {
+          ...settings,
+          format:
+            settings.format === "System"
+              ? new Intl.DateTimeFormat(undefined, {
+                  hour: "numeric",
+                }).resolvedOptions().hour12
+                ? "12"
+                : "24"
+              : settings.format,
+        }) +
         (settings.date
           ? `<div class="clock-date">${date.toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" })}</div>`
           : "");

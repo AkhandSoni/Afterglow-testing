@@ -646,3 +646,10 @@ code {
 .plain-display:empty {
   display: none;
 }
+
+.transport button svg {
+  width: 16px;
+  height: 16px;
+  display: block;
+  fill: currentColor;
+}

@@ -3,6 +3,7 @@
 set -euo pipefail
 binary="$(realpath "$1")"
 export WLR_BACKENDS=headless WLR_RENDERER=pixman WLR_LIBINPUT_NO_DEVICES=1
+export XDG_CURRENT_DESKTOP=sway
 export GDK_BACKEND=wayland WEBKIT_DISABLE_DMABUF_RENDERER=1 LIBGL_ALWAYS_SOFTWARE=1
 out="${AFTERGLOW_WAYLAND_RESULTS:-/tmp/afterglow-wayland}"
 mkdir -p "$out"
@@ -24,6 +25,7 @@ for attempt in $(seq 1 60); do
   sleep .2
 done
 [[ -n "${WAYLAND_DISPLAY:-}" ]]
+dbus-update-activation-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR GDK_BACKEND XDG_CURRENT_DESKTOP
 "$binary" --action desktop >"$out/app.log" 2>&1 &
 app_pid=$!
 for attempt in $(seq 1 60); do

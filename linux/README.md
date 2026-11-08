@@ -56,8 +56,8 @@ npm run build --prefix linux
 dbus-run-session -- bash linux/tests/mpris.sh
 # Requires a running Vite preview and Python Playwright:
 python3 linux/tests/ui.py
-# After npm run bundle, with xvfb/openbox/xdotool installed:
-dbus-run-session -- xvfb-run -a -s '-screen 0 1440x900x24' bash linux/tests/native-smoke.sh linux/src-tauri/target/release/afterglow-linux
+# After npm run bundle, with xvfb/openbox/xdotool/x11-utils installed:
+xvfb-run -a -s '-screen 0 1440x900x24' dbus-run-session -- bash linux/tests/native-smoke.sh linux/src-tauri/target/release/afterglow-linux
 ```
 
 Run the exported packages on a clean machine without Swift installed before release. Linux CI records package and native-window results. Browser tests cover UI behavior but cannot establish WebKitGTK rendering, real player compatibility, audio isolation, portal approval or compositor behavior.

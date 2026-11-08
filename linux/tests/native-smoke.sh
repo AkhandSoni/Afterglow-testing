@@ -34,6 +34,7 @@ sleep 1
 xdotool mousemove --window "$window" 390 535 click 1
 sleep 2
 kill -0 "$app_pid"
+if python3 -c 'import gi' >/dev/null 2>&1; then
 python3 - <<'PYSCREEN'
 import gi
 gi.require_version('Gdk','3.0')
@@ -43,6 +44,7 @@ image=Gdk.pixbuf_get_from_window(root,0,0,root.get_width(),root.get_height())
 assert image is not None
 image.savev('test-results/native-display.png','png',[],[])
 PYSCREEN
+fi
 xwininfo -id "$window" >test-results/native-window.txt
 xdotool key --window "$window" ctrl+k
 sleep 1

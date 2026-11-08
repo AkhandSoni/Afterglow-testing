@@ -5,8 +5,10 @@ export const defaults = {
   marker: "diamond",
   emoji: "✨",
   clock: true,
+  clockColor: "#eeeeee",
+  clockFollowsLyrics: false,
   clockStyle: "Minimal",
-  format: "24",
+  format: "System",
   seconds: false,
   date: false,
   clockSize: 100,
@@ -53,6 +55,7 @@ function validSettings(settings) {
       [
         "albumColor",
         "clock",
+        "clockFollowsLyrics",
         "seconds",
         "date",
         "motion",
@@ -63,7 +66,7 @@ function validSettings(settings) {
       ].includes(k)
     )
       return typeof v === "boolean";
-    if (k === "tint") return hex(v);
+    if (k === "tint" || k === "clockColor") return hex(v);
     if (k === "opacity") return finite(v, 0, 1);
     if (k === "fontSize") return finite(v, 22, 60);
     if (k === "clockSize") return finite(v, 60, 180);
@@ -77,7 +80,7 @@ function validSettings(settings) {
         "Analog",
         "Classic",
       ].includes(v);
-    if (k === "format") return ["12", "24"].includes(v);
+    if (k === "format") return ["System", "12", "24"].includes(v);
     if (k === "marker")
       return [
         "diamond",

@@ -12,7 +12,7 @@ Completed locally:
 - Two real PulseAudio sink inputs pass selected-stream isolation: the selected 1 kHz signal measures 0.20000 amplitude; the simultaneous 4 kHz stream is excluded (<0.0000001 measured amplitude).
 - Native WebKitGTK UI boot, Focus Mode, and X11 wallpaper create/restore pass under Xvfb/Openbox. The test caught and fixed a GTK realization-order crash in click-through setup.
 - Native Wayland Layer Shell wallpaper create/restore passes under headless Sway with a non-root user. An upstream GTK scale-factor warning appears during headless startup; physical display/fractional scaling checks remain outstanding.
-- ARM64 `.deb` and AppImage packages build. Final package installation/launch and x86_64 CI results are recorded in the pull request checks.
+- ARM64 `.deb` and AppImage packages build. The Debian package installs and passes the native launch/Focus/X11 wallpaper checks in a clean Ubuntu runtime with no Swift installed. x86_64 CI results are recorded in the pull request checks.
 - The existing website builds with its new Linux preview page; navigation, screenshot, workflow links, no horizontal overflow at 1440/1024/768/390 px and the existing Mac ZIP (HTTP 200) pass browser checks.
 
 Remaining release work is listed in `PARITY.md`: GNOME Wayland wallpaper, passive screenshot companion, desktop-specific sharing, thermal pressure behavior, real player/desktop/portal tests, and physical suspend/battery/multiple-monitor validation. Global shortcut portal setup is implemented but approval/denial/rebinding has not been exercised against a real desktop portal.
