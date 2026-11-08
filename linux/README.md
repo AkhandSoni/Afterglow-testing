@@ -31,7 +31,7 @@ Linux CI builds x86_64 packages. Artifacts are attached to the **Linux preview**
 
 Download the artifact from a successful Linux preview workflow run and extract its ZIP. On compatible Ubuntu systems, install the `.deb` with `sudo apt install ./Afterglow_0.1.0_amd64.deb` (use the ARM64 filename for ARM64 hardware). Apt installs the runtime dependencies. Launch Afterglow from the applications menu.
 
-For AppImage, install `pulseaudio-utils` for beat sync, make the file executable and run it. Systems without FUSE can use `APPIMAGE_EXTRACT_AND_RUN=1 ./Afterglow_0.1.0_amd64.AppImage`. These packages are development previews; use the feature checklist before relying on desktop integrations.
+For AppImage, install `pulseaudio-utils` for beat sync and Noto core/color-emoji fonts for multilingual lyrics and custom emoji, make the file executable and run it. Systems without FUSE can use `APPIMAGE_EXTRACT_AND_RUN=1 ./Afterglow_0.1.0_amd64.AppImage`. These packages are development previews; use the feature checklist before relying on desktop integrations.
 
 ## Use
 

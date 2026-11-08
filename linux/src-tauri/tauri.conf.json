@@ -42,7 +42,9 @@
           "libayatana-appindicator3-1",
           "libgtk-layer-shell0",
           "pulseaudio-utils",
-          "libcurl4t64"
+          "libcurl4t64",
+          "fonts-noto-core",
+          "fonts-noto-color-emoji"
         ]
       },
       "appimage": {
