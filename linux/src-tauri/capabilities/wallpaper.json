@@ -1,0 +1,1 @@
+{"identifier":"wallpaper","description":"Display-only wallpaper renderer","windows":["wallpaper"],"permissions":["core:event:allow-listen","core:event:allow-unlisten"]}

@@ -1,0 +1,64 @@
+name: Linux preview
+on:
+  pull_request:
+    paths: ['linux/**', 'Sources/AfterglowCore/**', 'Sources/AfterglowLyricsService/**', 'Tests/**', 'Package.*', '.github/workflows/linux.yml']
+  push:
+    branches: ['codex/linux-app']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: linux-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  linux:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      APPIMAGE_EXTRACT_AND_RUN: '1'
+      NO_STRIP: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+          cache-dependency-path: linux/package-lock.json
+      - uses: swift-actions/setup-swift@v2
+        with:
+          swift-version: '6.2.1'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: linux/src-tauri -> target
+      - name: Install Linux build and test dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-layer-shell-dev libdbus-1-dev libssl-dev libxdo-dev patchelf xvfb dbus-x11 openbox xdotool pulseaudio pulseaudio-utils python3-dbus python3-gi
+      - name: Shared Swift core checks
+        run: swift run CoreChecks
+      - name: Build shared lyric service
+        run: bash linux/scripts/build-sidecar.sh
+      - name: Shared lyric service protocol checks
+        run: AFTERGLOW_LYRICS_BINARY=linux/src-tauri/binaries/afterglow-lyrics-x86_64-unknown-linux-gnu python3 linux/tests/service.py
+      - name: Frontend checks
+        run: |
+          npm ci --prefix linux
+          npm test --prefix linux
+          npm run build --prefix linux
+      - name: Real MPRIS integration checks
+        run: dbus-run-session -- bash linux/tests/mpris.sh
+      - name: Build Linux packages
+        working-directory: linux
+        run: npm run bundle
+      - name: Launch native WebKitGTK application
+        run: dbus-run-session -- xvfb-run -a -s '-screen 0 1440x900x24' bash linux/tests/native-smoke.sh linux/src-tauri/target/release/afterglow-linux
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: afterglow-linux-x86_64-preview
+          path: |
+            linux/src-tauri/target/release/bundle/deb/*.deb
+            linux/src-tauri/target/release/bundle/appimage/*.AppImage
+            linux/test-results/
+          if-no-files-found: warn

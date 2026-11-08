@@ -43,6 +43,12 @@ When moving from an older ad hoc build, remove the old Afterglow entry from Scre
 
 Start music, open Afterglow and connect your player. Grant Automation permission when prompted. Open controls with **⌘K**, toggle Focus with **⇧⌘F**, Desktop view with **⇧⌘D**, or Beat Sync with **⇧⌘B**. Global shortcuts can be disabled in Controls → Keyboard Shortcuts.
 
+## Linux development preview
+
+A Linux port is being developed alongside the native Mac app in [`linux/`](linux/README.md). It uses Tauri/WebKitGTK, MPRIS player integration and selected-player audio capture, with the same Swift lyric engine as macOS. Linux builds and packages run through the **Linux preview** GitHub Actions workflow.
+
+This is a development preview, not a full-parity release. Desktop wallpaper, global shortcuts, capture/share behavior and player compatibility require desktop-specific validation. See the [feature and release checklist](linux/PARITY.md) before distributing it as a stable Linux version.
+
 ## Lyrics & privacy
 
 Fallback sources run automatically. For small duration differences, Afterglow selects the closest compatible timed recording and labels it; timing may differ slightly. Synced coverage varies; lyrics.ovh provides untimed text only. Manage backups and imports in **Lyric library**. Track metadata goes to enabled lyric services; caches and preferences stay on your Mac.

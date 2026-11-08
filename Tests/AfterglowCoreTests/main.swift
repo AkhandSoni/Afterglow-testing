@@ -802,4 +802,14 @@ try keepsakeStore.remove(name: "scene")
 expect(keepsakeStore.read(SongAppearance.self, name: "scene"), nil, "scene removal persists")
 try FileManager.default.removeItem(at: keepsakeFolder)
 
+
+// The portable path must use the same unnormalised FFT convention as Accelerate.
+let portableImpulse = PortableFFT.forward([1, 0, 0, 0, 0, 0, 0, 0])
+expect(portableImpulse.0.allSatisfy { abs($0 - 1) < 0.00001 }, true, "portable FFT impulse spectrum")
+expect(portableImpulse.1.allSatisfy { abs($0) < 0.00001 }, true, "portable FFT impulse phase")
+let portableSine = PortableFFT.forward((0..<32).map { Float(sin(2 * Double.pi * 3 * Double($0) / 32)) })
+expect(abs(portableSine.1[3] + 16) < 0.0001, true, "portable FFT resolves known sine bin")
+expect(abs(portableSine.1[29] - 16) < 0.0001, true, "portable FFT conjugate bin")
+expect(PortableFFT.forward([1, 2, 3]).0.isEmpty, true, "portable FFT rejects non power-of-two input")
+
 print("ALL \(checks) CHECKS PASSED")
