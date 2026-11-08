@@ -27,6 +27,12 @@ docker run --rm -v "$PWD:/workspace" -v afterglow-swift-build:/workspace/.build 
 
 Linux CI builds x86_64 packages. Artifacts are attached to the **Linux preview** workflow run, rather than linked to a nonexistent stable release. AppImage is a packaging format, not a promise of compatibility with older glibc distributions. This preview targets Ubuntu 24.04 or compatible newer systems; other distributions need testing.
 
+## Install a preview package
+
+Download the artifact from a successful Linux preview workflow run and extract its ZIP. On compatible Ubuntu systems, install the `.deb` with `sudo apt install ./Afterglow_0.1.0_amd64.deb` (use the ARM64 filename for ARM64 hardware). Apt installs the runtime dependencies. Launch Afterglow from the applications menu.
+
+For AppImage, install `pulseaudio-utils` for beat sync, make the file executable and run it. Systems without FUSE can use `APPIMAGE_EXTRACT_AND_RUN=1 ./Afterglow_0.1.0_amd64.AppImage`. These packages are development previews; use the feature checklist before relying on desktop integrations.
+
 ## Use
 
 Start music in Spotify or another MPRIS-compatible player. In Controls → Player, choose the player. Playback metadata and timing are read locally; no Spotify account token is required. Apple Music web playback depends on the browser’s MPRIS implementation and is not equivalent to native Apple Music integration.

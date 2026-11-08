@@ -131,7 +131,13 @@ fn run(app: &tauri::AppHandle) -> Result<(), String> {
             (path, shortcuts, "", options("afterglow_bind")),
         )
     })?;
-    if !bound.contains_key("shortcuts") {
+    if bound
+        .get("shortcuts")
+        .and_then(|v| v.0.as_iter())
+        .map(|items| items.count())
+        .unwrap_or(0)
+        == 0
+    {
         return Err(
             "The desktop did not bind any shortcuts. Use desktop keyboard settings instead.".into(),
         );

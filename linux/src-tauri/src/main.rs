@@ -268,7 +268,7 @@ fn main() {
                 MenuItem::with_id(app, "restore", "Return to Window", true, None::<&str>)?;
             let quit = MenuItem::with_id(app, "quit", "Quit Afterglow", true, None::<&str>)?;
             let menu = Menu::with_items(app, &[&open, &restore, &quit])?;
-            let icon = tauri::image::Image::new_owned(vec![240; 32 * 32 * 4], 32, 32);
+            let icon = tauri::image::Image::from_bytes(include_bytes!("../icons/icon.png"))?;
             TrayIconBuilder::new()
                 .icon(icon)
                 .tooltip("Afterglow")

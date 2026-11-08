@@ -31,9 +31,18 @@ done
 grep -q 'Afterglow UI ready' test-results/native.log
 sleep 1
 # Start the explicit silent demo through a real mouse click in WebKitGTK.
-xdotool mousemove --window "$window" 390 560 click 1
+xdotool mousemove --window "$window" 390 535 click 1
 sleep 2
 kill -0 "$app_pid"
+python3 - <<'PYSCREEN'
+import gi
+gi.require_version('Gdk','3.0')
+from gi.repository import Gdk
+root=Gdk.get_default_root_window()
+image=Gdk.pixbuf_get_from_window(root,0,0,root.get_width(),root.get_height())
+assert image is not None
+image.savev('test-results/native-display.png','png',[],[])
+PYSCREEN
 xwininfo -id "$window" >test-results/native-window.txt
 xdotool key --window "$window" ctrl+k
 sleep 1
