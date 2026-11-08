@@ -15,7 +15,12 @@ for attempt in $(seq 1 60); do
 done
 window="$(xdotool search --name '^Afterglow$' | head -1)"
 xdotool windowactivate --sync "$window"
-sleep 2
+for attempt in $(seq 1 30); do
+  if grep -q 'Afterglow UI ready' test-results/native.log; then break; fi
+  sleep .5
+done
+grep -q 'Afterglow UI ready' test-results/native.log
+sleep 1
 # Start the explicit silent demo through a real mouse click in WebKitGTK.
 xdotool mousemove --window "$window" 390 560 click 1
 sleep 2

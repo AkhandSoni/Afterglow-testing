@@ -973,15 +973,20 @@ if (native) {
     wake();
   });
   await listen("action", (event) => {
-    const actions = {
-      focus: toggleFocus,
-      desktop: toggleDesktop,
-      beats: () => openPanel("audio"),
-      appearance: () => openPanel("appearance"),
-      capture: () => captureMap(),
-    };
-    Promise.resolve(actions[event.payload]?.()).catch(report);
+    dispatchAction(event.payload).catch(report);
   });
+}
+async function dispatchAction(action) {
+  if (desktop && ["focus", "beats", "appearance", "capture"].includes(action))
+    await toggleDesktop();
+  const actions = {
+    focus: toggleFocus,
+    desktop: toggleDesktop,
+    beats: () => openPanel("audio"),
+    appearance: () => openPanel("appearance"),
+    capture: () => captureMap(),
+  };
+  if (actions[action]) await actions[action]();
 }
 function tick(now) {
   const animate =
@@ -1002,6 +1007,15 @@ function tick(now) {
   if (now - lastDraw < interval) return;
   lastDraw = now;
   const position = positionAt(sample, now);
+  if (demo && sample?.playing && position >= sample.duration) {
+    sample = {
+      ...sample,
+      position: sample.duration,
+      playing: false,
+      received: now,
+    };
+    trackUI();
+  }
   lastLine = resolveLine(
     documentLyrics?.lines || [],
     position - (library.timing[key] || 0),
@@ -1056,4 +1070,8 @@ function tick(now) {
   }
 }
 await load();
+if (native) {
+  const startup = await call("ui_ready");
+  if (startup) await dispatchAction(startup).catch(report);
+}
 wake();

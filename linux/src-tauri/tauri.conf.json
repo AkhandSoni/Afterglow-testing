@@ -53,7 +53,8 @@
       "icons/icon.png"
     ],
     "resources": {
-      "runtime/": "runtime/"
+      "runtime/": "runtime/",
+      "notices/": "notices/"
     }
   }
 }

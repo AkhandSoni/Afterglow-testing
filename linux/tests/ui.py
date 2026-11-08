@@ -23,6 +23,8 @@ with sync_playwright() as p:
     page.locator('[data-setting="tint"]').fill('#22ccaa')
     page.get_by_role('button',name='Save scene for this song',exact=True).click()
     expect(page.get_by_role('button',name='Update scene for this song',exact=True)).to_be_visible()
+    with page.expect_download() as map_download:page.get_by_role('button',name='Export lyric map',exact=True).click()
+    map_download.value.save_as(out/'lyric-map.png');assert (out/'lyric-map.png').read_bytes().startswith(b'\x89PNG')
     page.get_by_role('button',name='Collections',exact=True).click()
     page.locator('#collection-name').fill('Late nights');page.get_by_role('button',name='Create collection').click()
     section=page.locator('.collection').filter(has=page.locator('input[value="Late nights"]'))

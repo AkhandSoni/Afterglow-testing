@@ -8,7 +8,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: linux-${{ github.ref }}
+  group: linux-${{ github.event.pull_request.head.ref || github.ref_name }}
   cancel-in-progress: true
 jobs:
   linux:

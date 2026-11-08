@@ -9,7 +9,7 @@
     "test": "node --test tests/*.test.js",
     "tauri": "tauri",
     "desktop": "tauri dev",
-    "bundle": "tauri build"
+    "bundle": "python3 scripts/collect-notices.py && tauri build"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.9.0",

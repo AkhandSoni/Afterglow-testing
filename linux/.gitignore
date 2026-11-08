@@ -6,3 +6,5 @@ test-results/
 src-tauri/runtime/*.so*
 
 src-tauri/gen/
+src-tauri/notices/*
+!src-tauri/notices/README.txt

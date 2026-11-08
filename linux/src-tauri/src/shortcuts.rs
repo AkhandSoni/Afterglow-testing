@@ -41,7 +41,7 @@ fn run(app: &tauri::AppHandle) -> Result<(), String> {
         let sender = connection
             .unique_name()
             .trim_start_matches(':')
-            .replace('.', '_');
+            .replace('.', "_");
         let expected = format!("/org/freedesktop/portal/desktop/request/{sender}/{token}");
         let result = Arc::new(Mutex::new(None));
         let pending = result.clone();

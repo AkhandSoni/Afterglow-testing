@@ -11,6 +11,11 @@ use std::{
     sync::Mutex,
     time::{Duration, Instant},
 };
+#[derive(Default)]
+struct Lifecycle {
+    ready: std::sync::atomic::AtomicBool,
+    pending: Mutex<Option<String>>,
+}
 static LYRICS_LOCK: Mutex<()> = Mutex::new(());
 static LYRICS_GENERATION: std::sync::atomic::AtomicU64 = std::sync::atomic::AtomicU64::new(0);
 use base64::Engine;
@@ -190,6 +195,14 @@ fn enable_shortcuts(app: tauri::AppHandle) -> Result<(), String> {
     shortcuts::start(app)
 }
 #[tauri::command]
+fn ui_ready(app: tauri::AppHandle) -> Option<String> {
+    let state = app.state::<Lifecycle>();
+    state.ready.store(true, std::sync::atomic::Ordering::SeqCst);
+    eprintln!("Afterglow UI ready");
+    let pending = state.pending.lock().unwrap().take();
+    pending
+}
+#[tauri::command]
 fn export_png(path: String, data: String) -> Result<(), String> {
     let path = std::path::Path::new(&path);
     if path.extension().and_then(|s| s.to_str()) != Some("png") {
@@ -212,7 +225,12 @@ fn main() {
             if let Some(window) = app.get_webview_window("main") {
                 if let Some(index) = args.iter().position(|a| a == "--action") {
                     if let Some(action) = args.get(index + 1) {
-                        let _ = window.emit("action", action);
+                        let lifecycle = app.state::<Lifecycle>();
+                        if lifecycle.ready.load(std::sync::atomic::Ordering::SeqCst) {
+                            let _ = window.emit("action", action);
+                        } else {
+                            *lifecycle.pending.lock().unwrap() = Some(action.clone());
+                        }
                     }
                 } else {
                     let _ = window.show();
@@ -222,11 +240,18 @@ fn main() {
         }))
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_clipboard_manager::init())
+        .manage(Lifecycle::default())
         .manage(audio::Capture::default())
         .manage(power::Power::default())
         .manage(shortcuts::Shortcuts::default())
         .setup(|app| {
             power::start(app.handle().clone());
+            let arguments: Vec<String> = std::env::args().collect();
+            if let Some(index) = arguments.iter().position(|a| a == "--action") {
+                if let Some(action) = arguments.get(index + 1) {
+                    *app.state::<Lifecycle>().pending.lock().unwrap() = Some(action.clone());
+                }
+            }
             use tauri::{
                 menu::{Menu, MenuItem},
                 tray::TrayIconBuilder,
@@ -276,6 +301,7 @@ fn main() {
             desktop_mode,
             publish_display,
             enable_shortcuts,
+            ui_ready,
             export_png
         ])
         .run(tauri::generate_context!())
