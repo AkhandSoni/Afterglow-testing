@@ -1,4 +1,5 @@
 import Foundation
+#if canImport(Accelerate)
 import Accelerate
 
 /// Hann-windowed 2048-sample FFT. Log bands represent frequency, not slices of a waveform.
@@ -6,15 +7,21 @@ private final class FFTPlan {
     let setup = vDSP_DFT_zop_CreateSetup(nil, 2048, .FORWARD)
     deinit { if let setup { vDSP_DFT_DestroySetup(setup) } }
 }
+#endif
 
 struct SpectrumAnalyzer {
     private let size = 2048
+    #if canImport(Accelerate)
     private let plan = FFTPlan()
+    #endif
     private var pending: [Float] = []
     private var rate = 0.0
     private var latest = Array(repeating: 0.0, count: 32)
     mutating func process(_ samples: [Float], sampleRate: Double) -> [Double] {
-        guard let setup = plan.setup, sampleRate.isFinite, sampleRate > 0 else { return latest }
+        guard sampleRate.isFinite, sampleRate > 0 else { return latest }
+        #if canImport(Accelerate)
+        guard let setup = plan.setup else { return latest }
+        #endif
         if rate != sampleRate { pending.removeAll(keepingCapacity: true); rate = sampleRate; latest = Array(repeating: 0, count: 32) }
         pending.append(contentsOf: samples.map { $0.isFinite ? min(1, max(-1, $0)) : 0 })
         guard pending.count >= size else { return latest }
@@ -24,7 +31,11 @@ struct SpectrumAnalyzer {
         let real = window.enumerated().map { i, x in x * Float(0.5 - 0.5 * cos(2 * .pi * Double(i) / Double(size - 1))) }
         let imaginary = Array(repeating: Float(0), count: size)
         var outputReal = imaginary, outputImaginary = imaginary
+        #if canImport(Accelerate)
         vDSP_DFT_Execute(setup, real, imaginary, &outputReal, &outputImaginary)
+        #else
+        (outputReal, outputImaginary) = PortableFFT.forward(real)
+        #endif
         let highest = min(16000, sampleRate * 0.48)
         guard highest > 40 else { return Array(repeating: 0, count: 32) }
         for band in 0..<32 {

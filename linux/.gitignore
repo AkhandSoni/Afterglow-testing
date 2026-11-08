@@ -1,0 +1,10 @@
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/binaries/
+test-results/
+src-tauri/runtime/*.so*
+
+src-tauri/gen/
+src-tauri/notices/*
+!src-tauri/notices/README.txt

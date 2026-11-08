@@ -1,0 +1,13 @@
+{
+  "identifier": "main",
+  "description": "Local Afterglow window only",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "core:window:allow-set-fullscreen",
+    "core:window:allow-is-fullscreen",
+    "dialog:allow-save",
+    "dialog:allow-open",
+    "clipboard-manager:allow-write-image"
+  ]
+}

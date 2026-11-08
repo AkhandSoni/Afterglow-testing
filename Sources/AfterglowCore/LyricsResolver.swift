@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 public enum LyricSource: String, Codable, Sendable {
     case lrclib, karalyr, netease, lyricsOVH, local
