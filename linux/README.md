@@ -10,7 +10,7 @@ Install Swift 6.2.1, Rust stable and Node.js 22.12+, then:
 
 ```sh
 sudo apt-get update
-sudo apt-get install build-essential pkg-config libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-layer-shell-dev libdbus-1-dev libssl-dev libxdo-dev patchelf pulseaudio-utils
+sudo apt-get install build-essential pkg-config libwebkit2gtk-4.1-dev libayatana-appindicator3-dev librsvg2-dev libgtk-layer-shell-dev libdbus-1-dev libssl-dev libcurl4-openssl-dev libxdo-dev patchelf pulseaudio-utils
 bash linux/scripts/build-sidecar.sh
 npm ci --prefix linux
 npm run desktop --prefix linux

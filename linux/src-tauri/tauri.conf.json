@@ -41,7 +41,8 @@
           "libgtk-3-0",
           "libayatana-appindicator3-1",
           "libgtk-layer-shell0",
-          "pulseaudio-utils"
+          "pulseaudio-utils",
+          "libcurl4t64"
         ]
       },
       "appimage": {

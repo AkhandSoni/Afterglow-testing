@@ -1,1 +1,170 @@
-{"document":{"source":"local","retrievedFromCache":false,"automaticMatch":false,"manualMatch":false,"lines":[{"text":"Let the city fall asleep","words":[{"end":1,"text":"Let","time":0},{"text":"the","time":1,"end":2},{"time":2,"end":3,"text":"city"},{"time":3,"end":4,"text":"fall"},{"time":4,"text":"asleep","end":5}],"time":0,"end":5},{"time":6,"text":"Leave a little light for me","end":11,"words":[{"time":6,"text":"Leave","end":6.833333333333333},{"time":6.833333333333333,"text":"a","end":7.666666666666667},{"time":7.666666666666667,"text":"little","end":8.5},{"time":8.5,"text":"light","end":9.333333333333334},{"time":9.333333333333334,"text":"for","end":10.166666666666668},{"time":10.166666666666668,"text":"me","end":11}]},{"time":12,"text":"Every word becomes a star","end":17,"words":[{"time":12,"text":"Every","end":13},{"time":13,"text":"word","end":14},{"time":14,"text":"becomes","end":15},{"time":15,"text":"a","end":16},{"time":16,"text":"star","end":17}]},{"time":18,"text":"Drawing lines to where you are","end":23,"words":[{"time":18,"text":"Drawing","end":18.833333333333332},{"time":18.833333333333332,"text":"lines","end":19.666666666666668},{"time":19.666666666666668,"text":"to","end":20.5},{"time":20.5,"text":"where","end":21.333333333333332},{"time":21.333333333333332,"text":"you","end":22.166666666666668},{"time":22.166666666666668,"text":"are","end":23}]},{"time":24,"text":"We are echoes in the blue","end":29,"words":[{"time":24,"text":"We","end":24.833333333333332},{"time":24.833333333333332,"text":"are","end":25.666666666666668},{"time":25.666666666666668,"text":"echoes","end":26.5},{"time":26.5,"text":"in","end":27.333333333333332},{"time":27.333333333333332,"text":"the","end":28.166666666666668},{"time":28.166666666666668,"text":"blue","end":29}]},{"time":30,"text":"All the light comes back to you","end":35,"words":[{"time":30,"text":"All","end":30.714285714285715},{"time":30.714285714285715,"text":"the","end":31.428571428571427},{"time":31.428571428571427,"text":"light","end":32.142857142857146},{"time":32.142857142857146,"text":"comes","end":32.857142857142854},{"time":32.857142857142854,"text":"back","end":33.57142857142857},{"time":33.57142857142857,"text":"to","end":34.285714285714285},{"time":34.285714285714285,"text":"you","end":35}]},{"time":36,"text":"Let the silence find its glow","end":41,"words":[{"time":36,"text":"Let","end":36.833333333333336},{"time":36.833333333333336,"text":"the","end":37.666666666666664},{"time":37.666666666666664,"text":"silence","end":38.5},{"time":38.5,"text":"find","end":39.333333333333336},{"time":39.333333333333336,"text":"its","end":40.166666666666664},{"time":40.166666666666664,"text":"glow","end":41}]},{"time":42,"text":"Stay a while before you go","end":47,"words":[{"time":42,"text":"Stay","end":42.833333333333336},{"time":42.833333333333336,"text":"a","end":43.666666666666664},{"time":43.666666666666664,"text":"while","end":44.5},{"time":44.5,"text":"before","end":45.333333333333336},{"time":45.333333333333336,"text":"you","end":46.166666666666664},{"time":46.166666666666664,"text":"go","end":47}]}],"instrumental":false}}
+{
+  "document": {
+    "source": "local",
+    "retrievedFromCache": false,
+    "automaticMatch": false,
+    "manualMatch": false,
+    "lines": [
+      {
+        "text": "Let the city fall asleep",
+        "words": [
+          { "end": 1, "text": "Let", "time": 0 },
+          { "text": "the", "time": 1, "end": 2 },
+          { "time": 2, "end": 3, "text": "city" },
+          { "time": 3, "end": 4, "text": "fall" },
+          { "time": 4, "text": "asleep", "end": 5 }
+        ],
+        "time": 0,
+        "end": 5
+      },
+      {
+        "time": 6,
+        "text": "Leave a little light for me",
+        "end": 11,
+        "words": [
+          { "time": 6, "text": "Leave", "end": 6.833333333333333 },
+          { "time": 6.833333333333333, "text": "a", "end": 7.666666666666667 },
+          { "time": 7.666666666666667, "text": "little", "end": 8.5 },
+          { "time": 8.5, "text": "light", "end": 9.333333333333334 },
+          {
+            "time": 9.333333333333334,
+            "text": "for",
+            "end": 10.166666666666668
+          },
+          { "time": 10.166666666666668, "text": "me", "end": 11 }
+        ]
+      },
+      {
+        "time": 12,
+        "text": "Every word becomes a star",
+        "end": 17,
+        "words": [
+          { "time": 12, "text": "Every", "end": 13 },
+          { "time": 13, "text": "word", "end": 14 },
+          { "time": 14, "text": "becomes", "end": 15 },
+          { "time": 15, "text": "a", "end": 16 },
+          { "time": 16, "text": "star", "end": 17 }
+        ]
+      },
+      {
+        "time": 18,
+        "text": "Drawing lines to where you are",
+        "end": 23,
+        "words": [
+          { "time": 18, "text": "Drawing", "end": 18.833333333333332 },
+          {
+            "time": 18.833333333333332,
+            "text": "lines",
+            "end": 19.666666666666668
+          },
+          { "time": 19.666666666666668, "text": "to", "end": 20.5 },
+          { "time": 20.5, "text": "where", "end": 21.333333333333332 },
+          {
+            "time": 21.333333333333332,
+            "text": "you",
+            "end": 22.166666666666668
+          },
+          { "time": 22.166666666666668, "text": "are", "end": 23 }
+        ]
+      },
+      {
+        "time": 24,
+        "text": "We are echoes in the blue",
+        "end": 29,
+        "words": [
+          { "time": 24, "text": "We", "end": 24.833333333333332 },
+          {
+            "time": 24.833333333333332,
+            "text": "are",
+            "end": 25.666666666666668
+          },
+          { "time": 25.666666666666668, "text": "echoes", "end": 26.5 },
+          { "time": 26.5, "text": "in", "end": 27.333333333333332 },
+          {
+            "time": 27.333333333333332,
+            "text": "the",
+            "end": 28.166666666666668
+          },
+          { "time": 28.166666666666668, "text": "blue", "end": 29 }
+        ]
+      },
+      {
+        "time": 30,
+        "text": "All the light comes back to you",
+        "end": 35,
+        "words": [
+          { "time": 30, "text": "All", "end": 30.714285714285715 },
+          {
+            "time": 30.714285714285715,
+            "text": "the",
+            "end": 31.428571428571427
+          },
+          {
+            "time": 31.428571428571427,
+            "text": "light",
+            "end": 32.142857142857146
+          },
+          {
+            "time": 32.142857142857146,
+            "text": "comes",
+            "end": 32.857142857142854
+          },
+          {
+            "time": 32.857142857142854,
+            "text": "back",
+            "end": 33.57142857142857
+          },
+          {
+            "time": 33.57142857142857,
+            "text": "to",
+            "end": 34.285714285714285
+          },
+          { "time": 34.285714285714285, "text": "you", "end": 35 }
+        ]
+      },
+      {
+        "time": 36,
+        "text": "Let the silence find its glow",
+        "end": 41,
+        "words": [
+          { "time": 36, "text": "Let", "end": 36.833333333333336 },
+          {
+            "time": 36.833333333333336,
+            "text": "the",
+            "end": 37.666666666666664
+          },
+          { "time": 37.666666666666664, "text": "silence", "end": 38.5 },
+          { "time": 38.5, "text": "find", "end": 39.333333333333336 },
+          {
+            "time": 39.333333333333336,
+            "text": "its",
+            "end": 40.166666666666664
+          },
+          { "time": 40.166666666666664, "text": "glow", "end": 41 }
+        ]
+      },
+      {
+        "time": 42,
+        "text": "Stay a while before you go",
+        "end": 47,
+        "words": [
+          { "time": 42, "text": "Stay", "end": 42.833333333333336 },
+          {
+            "time": 42.833333333333336,
+            "text": "a",
+            "end": 43.666666666666664
+          },
+          { "time": 43.666666666666664, "text": "while", "end": 44.5 },
+          { "time": 44.5, "text": "before", "end": 45.333333333333336 },
+          {
+            "time": 45.333333333333336,
+            "text": "you",
+            "end": 46.166666666666664
+          },
+          { "time": 46.166666666666664, "text": "go", "end": 47 }
+        ]
+      }
+    ],
+    "instrumental": false
+  }
+}

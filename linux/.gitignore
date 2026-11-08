@@ -4,3 +4,5 @@ src-tauri/target/
 src-tauri/binaries/
 test-results/
 src-tauri/runtime/*.so*
+
+src-tauri/gen/
