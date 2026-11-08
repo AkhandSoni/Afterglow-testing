@@ -9,6 +9,9 @@ with sync_playwright() as p:
     errors=[];page.on('pageerror',lambda err:errors.append(str(err)))
     page.goto('http://127.0.0.1:1420');page.wait_for_load_state('networkidle')
     expect(page.get_by_role('heading',name='Put on a song. Stay a little longer.')).to_be_visible()
+    page.set_viewport_size({'width':640,'height':480});page.wait_for_timeout(100)
+    rect=page.locator('#demo').bounding_box();assert rect['y']+rect['height']<=480,'Demo action clipped at minimum window size'
+    page.set_viewport_size({'width':1200,'height':800})
     page.get_by_role('button',name='Try the silent demo',exact=True).click()
     expect(page.locator('#title')).to_have_text('Afterglow')
     expect(page.locator('#lyric-source')).to_contain_text('Word timed')
